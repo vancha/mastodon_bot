@@ -9,7 +9,7 @@ const RSS_ADDRESS: &str = "https://omropfryslan.nl/rss";
 const FILE_LOCATION: &str = "file.json";
 
 
-//checks the rss feed, and only returns new elements if there are any
+///checks the rss feed, and only returns new elements if there are any
 fn periodic_check(
     processed_items_list: &HashMap<std::string::String, std::string::String>,
 ) -> Vec<(std::string::String, std::string::String)> {
@@ -28,18 +28,21 @@ fn periodic_check(
     results
 }
 
+///this will eventually need to take the mastodon client as an argument, that it will need to send
+///the statusupdate to.
 fn add_status(status: &(std::string::String, std::string::String, Option<std::string::String>)) -> std::result::Result<(), ()> {
     
-
     Ok(())
 
 }
 
+///this is going to return the mastodon client
 fn mastodon_login() {
 
 }
 
-//gets a hashmap from file if there is one, returns a new one and creates the file if there is not.
+///gets a hashmap from file if there is one, returns a new one and creates the file if there is not. used to store the already processed
+///elements in the rss feed.
 fn get_processed_elements_hashmap() -> HashMap<std::string::String, std::string::String> {
     let processed_elements_hashmap: HashMap<std::string::String, std::string::String>;
 
