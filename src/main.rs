@@ -38,17 +38,16 @@ fn main() {
     let mut processed_elements_hashmap = get_processed_elements_hashmap(); //: HashMap<std::string::String, std::string::String>;
 
     loop {
-        println!("processing...");
         let new_elements = periodic_check(&processed_elements_hashmap);
         for new_item in &new_elements {
             processed_elements_hashmap.insert(new_item.0.clone(), (new_item.1.clone(),None));
+            println!("{}",new_item.1.clone());
         }
-        std::thread::sleep(std::time::Duration::from_secs(
-            1, //MINUTES_BETWEEN_CHECKS * SECONDS_TO_MINUTES,
-        ));
-        break;
-    }
+        let serialized = serde_json::to_string(&processed_elements_hashmap).unwrap();
+        std::fs::write(FILE_LOCATION, serialized).expect("Unable to write file");
 
-    let serialized = serde_json::to_string(&processed_elements_hashmap).unwrap();
-    std::fs::write(FILE_LOCATION, serialized).expect("Unable to write file");
+        std::thread::sleep(std::time::Duration::from_secs(
+            MINUTES_BETWEEN_CHECKS * SECONDS_TO_MINUTES,
+        ));
+    }
 }
