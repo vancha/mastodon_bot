@@ -13,19 +13,14 @@ const FILE_LOCATION: &str = "file.json";
 fn periodic_check(
     processed_items_list: &HashMap<std::string::String, std::string::String>,
 ) -> Vec<(std::string::String, std::string::String)> {
-    let mut parser = RssParser::from_url(RSS_ADDRESS, "utf8").unwrap();
-    let mut results = vec![];
-    match parser.parse_vec() {
-        Ok(item_list) => {
-            for item in &item_list {
-                if !processed_items_list.contains_key(&item.link) {
-                    results.push((item.link.clone(), item.title.clone()));
-                }
-            }
-        }
-        _ => {}
-    }
-    results
+    RssParser::from_url(RSS_ADDRESS, "utf8")
+        .unwrap()
+        .parse_vec()
+        .unwrap()
+        .iter()
+        .map(|x|(x.link.clone(), x.title.clone()))
+        .filter(|(a,b)| !processed_items_list.contains_key(a))
+        .collect::<Vec<(std::string::String,std::string::String)>>()
 }
 
 ///this will eventually need to take the mastodon client as an argument, that it will need to send
