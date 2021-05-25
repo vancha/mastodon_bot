@@ -1,8 +1,12 @@
 use easy_rss::RssParser;
 use std::collections::HashMap;
+use elefren::{helpers::cli, prelude::*};
+use toml::*;
+use std::error;
+use std::error::Error;
 
 const SECONDS_TO_MINUTES: u64 = 60;
-const MINUTES_BETWEEN_CHECKS: u64 = 60;
+const MINUTES_BETWEEN_CHECKS: u64 = 2;
 const RSS_ADDRESS: &str = "https://omropfryslan.nl/rss";
 const FILE_LOCATION: &str = "file.json";
 
@@ -35,6 +39,16 @@ fn get_processed_elements_hashmap() -> HashMap<String, ( String, Option<String> 
 }
 
 fn main() {
+    //let mastodon = get_mastodon_data();//.unwrap();
+
+   /* let registration = Registration::new("https://mastodon.sdf.org")
+        .client_name("elefren_test")
+        .build().unwrap();*/
+        
+
+    //cli::authenticate("UW0-MzSIlX6wNL4hmzHmivgTn_VD6ZjnWZv8eBjRN1c").unwrap();
+
+
     let mut processed_elements_hashmap = get_processed_elements_hashmap(); //: HashMap<std::string::String, std::string::String>;
 
     loop {
